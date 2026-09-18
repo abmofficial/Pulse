@@ -1,0 +1,4 @@
+# Aftman tool manifest for this project.
+# Rojo is the tool used to serve the Roblox project to Studio.
+[tools]
+rojo = "rojo-rbx/rojo@7.7.0"
