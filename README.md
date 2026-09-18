@@ -18,7 +18,7 @@ A robust, secure, and high-performance networking framework for Roblox games fea
 Pulse is designed to work with [Rojo](https://rojo.space) for seamless synchronization between your file system and Roblox Studio.
 
 ### Prerequisites
-- [Rojo 7+](https://rojo.space/download)
+- [Rojo 7+](https://github.com/rojo-rbx/rojo/releases)
 - [Aftman](https://github.com/rojo-rbx/aftman) (for dependency management)
 
 ### Setup
