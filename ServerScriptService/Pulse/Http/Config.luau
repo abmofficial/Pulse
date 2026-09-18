@@ -46,6 +46,17 @@ local Config = {
 	RetryBaseDelay = 0.5,
 	DefaultRate = 10,
 
+	-- Debug configuration
+	Debug = {
+		Enabled = false,
+		LogRequests = false,
+		LogResponses = false,
+		LogBudget = false,
+		LogQueue = false,
+		LogRetries = false,
+		VerboseWarnings = false,
+	},
+
 	Endpoints = {
 		-- Used by Pulse's own security webhook logger (kick logs).
 		PulseWebhook = {

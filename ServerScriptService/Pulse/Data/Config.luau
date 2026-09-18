@@ -62,6 +62,22 @@ LoadTimeout = 30,
 SessionLockTimeout = 90,
 LoadRetryDelay = 3,
 
+-- Debug configuration
+Debug = {
+	-- Enable verbose logging for debugging purposes
+	Enabled = false,
+	-- Log all incoming/outgoing packets (can be very verbose)
+	LogPackets = false,
+	-- Log all validation failures
+	LogValidationFailures = false,
+	-- Log all security violations with extra detail
+	LogSecurityDetails = false,
+	-- Enable additional consistency checks
+	ConsistencyChecks = false,
+	-- Show debug information in warnings
+	VerboseWarnings = false,
+},
+
 FlagInvalidMutations = true,
 
 -- What a brand new player starts with. Every field here needs a rule

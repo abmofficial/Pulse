@@ -12,6 +12,14 @@ local Batcher = require(script.Runtime.Batcher)
 local IS_SERVER = RunService:IsServer()
 local reliable, unreliable = Transport.GetTransports()
 
+-- Debug configuration
+local DebugConfig = Constants.Debug or {}
+local function debugLog(category, message, ...)
+	if DebugConfig.Enabled and (DebugConfig.LogPackets or DebugConfig.VerboseWarnings) then
+		warn(string.format("[PULSE DEBUG][%s] " .. message, category, ...))
+	end
+end
+
 local function packArgs(...)
 	local count = select("#", ...)
 	local args = table.create(count)
@@ -43,6 +51,7 @@ local function send(data, target, player, isUnreliable)
 end
 
 local function sendDefinition(definition, data, target, player)
+	debugLog("SEND", "Sending definition %s to %s (unreliable=%s)", definition.Id, target, tostring(definition.Reliability == "Unreliable"))
 	send(data, target, player, definition.Reliability == "Unreliable")
 end
 
@@ -52,6 +61,7 @@ function context.SendEvent(definition, target, player, ...)
 	local args = packArgs(...)
 
 	if definition.Batch and Batcher.Queue(target, player, definition.Id, args) then
+		debugLog("BATCH", "Queued event %s for batching", definition.Id)
 		return
 	end
 
@@ -80,18 +90,22 @@ if IS_SERVER then
 	Players.PlayerRemoving:Connect(Batcher.Clear)
 
 	reliable.OnServerEvent:Connect(function(player, data)
+		debugLog("RECV", "Received reliable packet from %s", player.Name)
 		Dispatcher.Process(player, data, "Reliable")
 	end)
 
 	unreliable.OnServerEvent:Connect(function(player, data)
+		debugLog("RECV", "Received unreliable packet from %s", player.Name)
 		Dispatcher.Process(player, data, "Unreliable")
 	end)
 else
 	reliable.OnClientEvent:Connect(function(data)
+		debugLog("RECV", "Received reliable packet from server")
 		Dispatcher.Process(nil, data, "Reliable")
 	end)
 
 	unreliable.OnClientEvent:Connect(function(data)
+		debugLog("RECV", "Received unreliable packet from server")
 		Dispatcher.Process(nil, data, "Unreliable")
 	end)
 end
