@@ -688,8 +688,6 @@ Http:IsEnabled()                     -- Check if HTTP is enabled
 For issues, questions, or contributions:
 - Check the [Troubleshooting Guide](#troubleshooting)
 - Review the [API Reference](#api-reference)
-- Examine the [Source Code](./) for implementation details
-- Look at [Example Games](#example-games) for reference implementations
 
 ## License
 
