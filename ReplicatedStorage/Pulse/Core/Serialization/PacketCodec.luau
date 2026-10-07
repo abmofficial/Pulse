@@ -156,40 +156,40 @@ local function decode(data: buffer)
 		local argc = reader:U8()
 		if argc > MaxArguments then error("too many arguments") end
 
-local args = table.create(argc)
-for index = 1, argc do
-args[index] = ValueCodec.Decode(reader, 1)
-end
+		local args = table.create(argc)
+		for index = 1, argc do
+			args[index] = ValueCodec.Decode(reader, 1)
+		end
 
-return "Request", channelId, requestId, args
+		return "Request", channelId, requestId, args
 
 elseif kind == RESPONSE then
-local channelId = reader:U16()
-local requestId = reader:Varint()
-local success = reader:Boolean()
-local result = ValueCodec.Decode(reader, 1)
+		local channelId = reader:U16()
+		local requestId = reader:Varint()
+		local success = reader:Boolean()
+		local result = ValueCodec.Decode(reader, 1)
 
-return "Response", channelId, requestId, success, result
+		return "Response", channelId, requestId, success, result
 
 elseif kind == BATCH then
-local count = reader:Varint()
-if count > 255 then error("batch too large") end
+		local count = reader:Varint()
+		if count > 255 then error("batch too large") end
 
-local entries = table.create(count)
-for index = 1, count do
-local channelId = reader:U16()
-local argc = reader:U8()
-if argc > MaxArguments then error("too many arguments") end
+		local entries = table.create(count)
+		for index = 1, count do
+			local channelId = reader:U16()
+			local argc = reader:U8()
+			if argc > MaxArguments then error("too many arguments") end
 
-local args = table.create(argc)
-for argIndex = 1, argc do
-args[argIndex] = ValueCodec.Decode(reader, 1)
-end
+			local args = table.create(argc)
+			for argIndex = 1, argc do
+				args[argIndex] = ValueCodec.Decode(reader, 1)
+			end
 
-entries[index] = { Id = channelId, Args = args }
-end
+			entries[index] = { Id = channelId, Args = args }
+		end
 
-return "Batch", entries
+		return "Batch", entries
 end
 
 error("unknown packet kind: " .. kind)

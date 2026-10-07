@@ -6,6 +6,7 @@ local PacketCodec = require(script.Parent.Parent.Core.Serialization.PacketCodec)
 local batches = {}
 
 local Batcher = {}
+local heartbeatConnection = nil
 
 function Batcher.Queue(target, player, channelId, args)
 	for index = 1, #args do
@@ -27,7 +28,8 @@ function Batcher.Queue(target, player, channelId, args)
 end
 
 function Batcher.Start(deliver)
-	RunService.Heartbeat:Connect(function()
+	if heartbeatConnection then heartbeatConnection:Disconnect() end
+	heartbeatConnection = RunService.Heartbeat:Connect(function()
 		for key, batch in batches do
 			batches[key] = nil
 

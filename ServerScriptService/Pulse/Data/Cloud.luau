@@ -95,7 +95,7 @@ if not ok then
 return false, res
 end
 
-if res.Body == "null" or res.Body == "" then
+if res.Body == "null" or res.Body == "" or res.Body == nil then
 return true, nil -- no record yet
 end
 

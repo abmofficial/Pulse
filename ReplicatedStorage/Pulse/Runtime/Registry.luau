@@ -48,6 +48,7 @@ local function normalizeRequest(spec, id)
 	end
 
 	assert(type(name) == "string", "Request entry needs a name: " .. tostring(spec))
+	assert(rate > 0, "Request rate must be positive: " .. name)
 
 	return name, {
 		Id = id,

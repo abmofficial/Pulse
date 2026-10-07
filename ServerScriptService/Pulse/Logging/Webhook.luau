@@ -18,7 +18,7 @@ setupWarned = true
 if err == "NOT_CONFIGURED" then
 warn("[PULSE] Webhook is not configured — set it in Pulse/Http/Config (Endpoints.PulseWebhook)")
 else
-warn("[PULSE] Webhook unavailable: " .. tostring(err))
+warn("[PULSE] Webhook unavailable: " .. tostring(err) .. " \nAdd it to ServerScriptService/Pulse/Http/Config (Endpoints.PulseWebhook)")
 end
 end
 end

@@ -24,9 +24,6 @@ local MaxTableSize = Constants.MaxTableSize
 
 local ALLOWED_USERDATA = {
 	Vector2 = true, Vector3 = true, CFrame = true, Color3 = true,
-	UDim = true, UDim2 = true, BrickColor = true, Ray = true,
-	Rect = true, Region3 = true, NumberRange = true,
-	TweenInfo = true, DateTime = true, Instance = true,
 }
 
 --- Validates a single value recursively

@@ -60,7 +60,7 @@ local Config = {
 	Endpoints = {
 		-- Used by Pulse's own security webhook logger (kick logs).
 		PulseWebhook = {
-			Url = "YOUR_DISCORD_WEBHOOK",
+			Url = "YOUR_WEBHOOK_URL_HERE",
 			Method = "POST",
 			Rate = 5,
 		},

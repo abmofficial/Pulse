@@ -37,14 +37,18 @@ Profiles.Ready = Signal.new()
 
 local loaded = {}
 
-local function deepCopy(value)
-local copy = {}
+local function deepCopy(value, seen)
+	seen = seen or {}
+	if seen[value] then return seen[value] end
 
-for key, child in value do
-copy[key] = if type(child) == "table" then deepCopy(child) else child
-end
+	local copy = {}
+	seen[value] = copy
 
-return copy
+	for key, child in value do
+		copy[key] = if type(child) == "table" then deepCopy(child, seen) else child
+	end
+
+	return copy
 end
 
 local function reconcileTable(data, defaults)
